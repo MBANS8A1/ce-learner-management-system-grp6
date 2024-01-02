@@ -1,4 +1,4 @@
-### Miscellaneous
+### Miscellaneous ignores
 /terraform_infrastructure/.terraform
 node_modules
 dist
