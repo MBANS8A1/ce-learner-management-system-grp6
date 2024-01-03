@@ -28,11 +28,11 @@ resource "aws_db_instance" "project-rds-ins" {
 resource "aws_kms_key" "rds_primary_key" {
   description = "Test KMS Key"
   deletion_window_in_days = 10
-  enable_key_rotation = false
+  enable_key_rotation = true
   #important to make enable_key_rotation_ for terraform_apply to work
 }
 
-resource "aws_kms_key_policy" "example_policy" {
+resource "aws_kms_key_policy" "project_policy" {
   key_id = aws_kms_key.rds_primary_key.id
   policy = jsonencode({
     Id = "example_policy"
@@ -55,7 +55,7 @@ resource "aws_kms_key_policy" "example_policy" {
 
 
 resource "aws_db_subnet_group" "rds_sub_grp" {
-  name       = "rds-subnet-primary-grp"
+  name       = var.db_subnet_grp_name
   subnet_ids = var.public-subnets-cidr-ids
   tags = {
     Name = "RDS subnet group"

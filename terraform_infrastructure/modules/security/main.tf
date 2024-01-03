@@ -127,7 +127,7 @@ ingress {
    to_port     = 5432
    protocol    = "tcp"
    cidr_blocks = ["${chomp(data.external.myipaddr.result.ip)}/32"]
-   ipv6_cidr_blocks = ["${chomp(data.external.myipaddrv6.result.ip)}/128"]
+#    ipv6_cidr_blocks = ["${chomp(data.external.myipaddrv6.result.ip)}/128"]
  }
 
  tags = {

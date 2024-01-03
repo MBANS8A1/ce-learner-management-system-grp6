@@ -46,3 +46,22 @@ module "eks" {
     environment = var.environment
 }
 
+
+provider "aws" {
+  alias  = "us_east_1"
+  region = "us-east-1"
+}
+resource "aws_ecrpublic_repository" "projectECR" {
+  provider = aws.us_east_1
+  repository_name = var.ecr_name
+  catalog_data {
+    about_text        = "Contains docker images using maven and spring framework"
+    description       = "Repository for Learner Management frontend and backend images"
+    operating_systems = ["Linux","Windows"]
+    usage_text        = "Follow push commands to push up docker image into the repository"
+  }
+  tags = {
+    Name = "${var.ecr_name}"
+    Environment = "${var.environment}"
+  }
+}

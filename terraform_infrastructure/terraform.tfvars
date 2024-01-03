@@ -7,11 +7,11 @@ private_subnets_cidr = ["10.0.1.0/24","10.0.2.0/24","10.0.3.0/24"]
 vpc_name = "project-grp6"
 availability_zones = ["eu-west-2a","eu-west-2b","eu-west-2c"]
 environment = "dev"
-connectivity_type = "public"
+connectivity_type = "private"
 
 
 
-db_subnet_grp_name = "rds-subnet-project-grp"
+db_subnet_grp_name = "rds-subnet-project-group"
 db_username =  "hopefornewbies"
 rds_instance_name = "RDS_project_db_instance"
 db_password = "group6"
@@ -23,8 +23,9 @@ secrets_list = ["POSTGRES_USERNAME","POSTGRES_PASSWORD"]
 use_secrets_manager = true
 
 
-cluster_name = "eks-proj-cluster"
-min_size = 1
+cluster_name = "eks-team-project-cluster"
+min_size = 2
 max_size = 3
 desired_size = 2
 
+ecr_name = "team_project_ecr"

@@ -70,16 +70,11 @@ resource "aws_route" "public_internet_gateway" {
  gateway_id             = aws_internet_gateway.proj-igw.id
 }
 
-resource "aws_eip" "nat_eip" {
-  depends_on = [aws_internet_gateway.proj-igw]
-} 
-
 
 
 resource "aws_nat_gateway" "nat-gateway" {
   connectivity_type = var.connectivity_type
   subnet_id         = "${element(aws_subnet.public-subnets.*.id, 0)}"
-  allocation_id =   aws_eip.nat_eip.id
   tags = {
     Name = "${var.environment}-nat-gateway"
     Environment = "${var.environment}"

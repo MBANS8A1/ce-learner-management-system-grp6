@@ -9,7 +9,10 @@ variable cidr_block_range{
    description = "CIDR range the VPC will operate in"
 }
 
-
+variable ecr_name{
+    type = string
+    description = "Name of the Elastic Container Registry"
+}
 
 variable environment{
     type = string
