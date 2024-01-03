@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress-controller
+spec:
+  rules:
+  - host: http://a2590c34c361543288184875f1853d9c-2140e0a3d5f5e362.elb.eu-west-2.amazonaws.com
+    http:
+      paths:
+      - path: /api/v1/customers
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-learner-app-service
+            port:
+              number: 80
+      - path: /api/v1/customers/${id}
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-learner-app-service
+            port:
+              number: 80
+      - path: /api/v1/auth/login
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-learner-app-service
+            port:
+              number: 80 
+      - path: /api/v1/customers/${id}/profile-image
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-learner-app-service
+            port:
+              number: 80 
+  ingressClassName: nginx

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-learner-mgmt-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-learner-mgmt-app
+  template:
+    metadata:
+      labels:
+        app: frontend-learner-mgmt-app
+    spec:
+      containers:
+      - name: frontend-learner-mgmt-app
+        image: public.ecr.aws/n2p6r1h7/ce-team-project-frontend:latest
+        resources:
+            limits:
+              cpu: "500m"
+              memory: "200Mi"
+            requests:
+              cpu: "200m"
+        ports:
+        - containerPort: 80
+        env:
+            - name: VITE_API_BASE_URL
+              value: "http://http://a2590c34c361543288184875f1853d9c-2140e0a3d5f5e362.elb.eu-west-2.amazonaws.com/:8080"
+                    
