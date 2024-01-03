@@ -75,21 +75,11 @@ resource "aws_eip" "nat_eip" {
 } 
 
 
-# resource "aws_nat_gateway" "nat-gateway" {
-#   count  =  length(var.azones)
-#   connectivity_type = var.connectivity_type
-#   subnet_id         = aws_subnet.private-subnets[count.index].id
 
-#   tags = {
-#     Name = "${var.natgateway_name}"
-#   }
-# }
 resource "aws_nat_gateway" "nat-gateway" {
-  count  =  length(var.availability_zones)
   connectivity_type = var.connectivity_type
-  subnet_id         = aws_subnet.private-subnets[count.index].id
+  subnet_id         = "${element(aws_subnet.public-subnets.*.id, 0)}"
   allocation_id =   aws_eip.nat_eip.id
-  depends_on    = [aws_internet_gateway.proj-igw]
   tags = {
     Name = "${var.environment}-nat-gateway"
     Environment = "${var.environment}"
@@ -105,10 +95,9 @@ resource "aws_route_table" "privateRT" {
 }
 
 resource "aws_route" "private_nat_gateway" {
- count  =  length(var.availability_zones)
   route_table_id         = aws_route_table.privateRT.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.nat-gateway[count.index].id
+  nat_gateway_id         = aws_nat_gateway.nat-gateway.id
 }
 
 resource "aws_route_table_association" "private" {
