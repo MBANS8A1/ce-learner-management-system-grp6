@@ -1,3 +1,4 @@
+region    = "eu-west-2"
 cidr_block_range = "10.0.0.0/16"
 hostnames_enabled = true
 dns_allowed = true

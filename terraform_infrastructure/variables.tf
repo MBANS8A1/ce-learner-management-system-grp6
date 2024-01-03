@@ -1,7 +1,15 @@
+
+variable "region" {
+  description = "AWS region"
+  type        = string
+}
+
 variable cidr_block_range{
    type = string
    description = "CIDR range the VPC will operate in"
 }
+
+
 
 variable environment{
     type = string
