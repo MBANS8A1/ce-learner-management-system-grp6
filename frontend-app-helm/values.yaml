@@ -1,5 +1,5 @@
 #Frontend Deployment-Related Variables
-replicaCount: 1
+replicaCount: 2
 deployment:
   app_name: frontend-app
 
@@ -22,4 +22,4 @@ service:
   targetPort: 80
   protocol: TCP
 
-type: LoadBalancer
+type: NodePort

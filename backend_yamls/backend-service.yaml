@@ -11,7 +11,7 @@ spec:
      targetPort: 8080
   selector:
     app: backend-app
-  type: LoadBalancer
+  type: NodePort
 
 #added
 # apiVersion: v1

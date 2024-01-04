@@ -1,5 +1,5 @@
 #Backend Deployment-Related Variables
-replicaCount: 1
+replicaCount: 2
 deployment:
   app_name: backend-app
 
@@ -20,4 +20,4 @@ service:
   targetPort: 8080
   protocol: TCP
 
-type: LoadBalancer
+type: NodePort
