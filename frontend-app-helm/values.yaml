@@ -23,3 +23,15 @@ service:
   protocol: TCP
 
 type: LoadBalancer
+
+#Ingress-Related Variables
+
+ingressClassName: nginx
+port:
+ ingressPortNumber: 8080
+
+ingressService:
+  serviceName:  backend-service
+
+host : localhost
+pathType: Prefix
