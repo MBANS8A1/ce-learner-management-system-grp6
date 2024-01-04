@@ -9,6 +9,7 @@ module "networking"{
     availability_zones = var.availability_zones
     environment = var.environment
     connectivity_type = var.connectivity_type
+    cluster_name = var.cluster_name
 }
 
 module "security"{
@@ -51,17 +52,18 @@ provider "aws" {
   alias  = "us_east_1"
   region = "us-east-1"
 }
-resource "aws_ecrpublic_repository" "projectECR" {
+resource "aws_ecrpublic_repository" "repoimages" {
   provider = aws.us_east_1
-  repository_name = var.ecr_name
+  for_each =       toset(var.ecr_names)
+  repository_name = each.value
   catalog_data {
     about_text        = "Contains docker images using maven and spring framework"
-    description       = "Repository for Learner Management frontend and backend images"
+    description       = "Repository for Learner Management images"
     operating_systems = ["Linux","Windows"]
     usage_text        = "Follow push commands to push up docker image into the repository"
   }
   tags = {
-    Name = "${var.ecr_name}"
+    Name = each.value
     Environment = "${var.environment}"
   }
 }

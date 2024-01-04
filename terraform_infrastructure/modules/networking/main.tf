@@ -1,13 +1,63 @@
 
-resource "aws_vpc" "projectVPC" {
-  cidr_block           = var.cidr_block_range
-  enable_dns_hostnames = var.hostnames_enabled
-  enable_dns_support   = var.dns_allowed
+# data "aws_availability_zones" "available" {}
 
-  tags = {
-    Environment = "${var.environment}"
-    Name = "${var.vpc_name}-vpc"
-  }
+# module "vpc" {
+#   source  = "terraform-aws-modules/vpc/aws"
+#   version = "5.0.0"
+
+#   name = var.vpc_name
+
+#   cidr = var.cidr_block_range
+#   azs  = slice(data.aws_availability_zones.available.names, 0, 3)
+
+#   private_subnets = var.public_subnets_cidr
+#   public_subnets  = var.private_subnets_cidr
+
+#   enable_nat_gateway   = true
+#   single_nat_gateway   = true
+#   enable_dns_hostnames = true
+#   enable_dns_support   = var.dns_allowed
+
+
+#   public_subnet_tags = {
+#     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+#     "kubernetes.io/role/elb"                      = 1
+#   }
+
+#   private_subnet_tags = {
+#     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+#     "kubernetes.io/role/internal-elb"             = 1
+#   }
+
+#    tags = {
+#     Environment = "${var.environment}"
+#     Name = "${var.vpc_name}-vpc"
+#   }
+# }
+
+
+
+
+ resource "aws_vpc" "projectVPC" {
+   cidr_block           = var.cidr_block_range
+   enable_dns_hostnames = var.hostnames_enabled
+   enable_dns_support   = var.dns_allowed
+
+   tags = {
+     Environment = var.environment
+     Name = var.vpc_name
+
+  #    public_subnet_tags = {
+  #     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+  #     "kubernetes.io/role/elb"                      = 1
+  #   }
+
+  #    private_subnet_tags = {
+  #    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+  #    "kubernetes.io/role/internal-elb"             = 1
+  #  }
+                        
+ }  
 }
 
 resource "aws_subnet" "public-subnets" {
@@ -21,6 +71,8 @@ resource "aws_subnet" "public-subnets" {
     Name        = "Public Subnet-${var.environment}-${count.index + 1}"
 
     Environment = "${var.environment}"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+    "kubernetes.io/role/elb"                      = 1
   }
 }
 
@@ -33,6 +85,8 @@ resource "aws_subnet" "private-subnets" {
   tags = {
     Name        = "Private Subnet-${var.environment}-${count.index + 1}"
     Environment = "${var.environment}"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+    "kubernetes.io/role/internal-elb"   =  1
   }
 }
 

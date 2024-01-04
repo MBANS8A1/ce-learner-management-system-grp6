@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-app
+spec:
+  selector:
+    matchLabels:
+      app: backend-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backend-app
+    spec:
+      containers:
+      - name: backend-app
+        image: mbans7a1/back_end_repo:backendimgv1
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "200Mi"
+          requests:
+            cpu: "200m"
+        ports:
+        - containerPort: 8080
+        
+
+
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: backend-learner-mgmt-app
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: backend-learner-mgmt-app
+#   template:
+#     metadata:
+#       labels:
+#         app: backend-learner-mgmt-app
+#     spec:
+#       containers:
+#       - name: backend-learner-mgmt-app
+#         image: public.ecr.aws/n2p6r1h7/ce-team-project-backend:latest
+#         resources:
+#             limits:
+#               cpu: "500m"
+#               memory: "200Mi"
+#             requests:
+#               cpu: "200m"
+#         ports:
+#         - containerPort: 8080

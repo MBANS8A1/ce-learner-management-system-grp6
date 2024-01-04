@@ -42,3 +42,8 @@ variable connectivity_type {
     type = string
     description = "Whethere connectivity of NAT gateway is public or private"
 }
+
+variable cluster_name {
+    type = string
+    description = "The name of the EKS cluster that will contain running pods and containers"
+}

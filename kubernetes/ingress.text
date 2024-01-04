@@ -1,0 +1,59 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress-controller
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /api/v1/customers/*
+        pathType: Prefix
+        backend:
+          service: 
+            name: backend
+            port:
+              number: 8080 
+      - path: /api/v1/auth/login/
+        pathType: Prefix
+        backend:
+          service: 
+            name: backend
+            port:
+              number: 8080      
+  ingressClassName: nginx
+
+
+# a35faeac4b3f34801b2648eb8993afea-db274098a14624ec.elb.eu-west-2.amazonaws.com
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: nginx-ingress-controller
+# spec:
+#   rules:
+#   - host: localhost
+#     http:
+#       paths:
+#       - path: /api/lights
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: lights-smart-system
+#             port:
+#               number: 3000
+#       - path: /api/heating
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: heating-smart-system
+#             port:
+#               number: 3001
+#       - path: /api/status
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: status-smart-system
+#             port:
+#               number: 3002  
+#   ingressClassName: nginx

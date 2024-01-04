@@ -1,0 +1,23 @@
+#Backend Deployment-Related Variables
+replicaCount: 1
+deployment:
+  app_name: backend-app
+
+ports:
+  containerPort: 8080
+
+containers:
+  image: mbans7a1/back_end_repo:backendimgv1
+
+
+
+#Backend Service-Related Variables
+
+service:
+  serviceName: backend-service
+  app_name : backend-app
+  port: 8080
+  targetPort: 8080
+  protocol: TCP
+
+type: LoadBalancer

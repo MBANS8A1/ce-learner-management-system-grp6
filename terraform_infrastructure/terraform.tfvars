@@ -28,4 +28,4 @@ min_size = 2
 max_size = 3
 desired_size = 2
 
-ecr_name = "team_project_ecr"
+ecr_names = ["frontend_proj_ecr","backend_proj_ecr"]

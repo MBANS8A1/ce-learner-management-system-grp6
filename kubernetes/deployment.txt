@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: mbans7a1/nginx_test_image:bookworm1.25.3-nginx
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "200Mi"
+          requests:
+            cpu: "200m"
+        ports:
+        - containerPort: 80

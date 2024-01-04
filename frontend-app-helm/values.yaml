@@ -1,0 +1,25 @@
+#Frontend Deployment-Related Variables
+replicaCount: 1
+deployment:
+  app_name: frontend-app
+
+ports:
+  containerPort: 80
+
+containers:
+  image: mbans7a1/front_end_repo:frontendimgv1
+
+env:
+  name: VITE_API_BASE_URL
+  url: http://localhost:8080
+
+#Frontend Service-Related Variables
+
+service:
+  serviceName: frontend-service
+  app_name : frontend-app
+  port: 80
+  targetPort: 80
+  protocol: TCP
+
+type: LoadBalancer
