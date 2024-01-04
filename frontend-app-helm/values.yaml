@@ -22,4 +22,4 @@ service:
   targetPort: 80
   protocol: TCP
 
-type: NodePort
+type: LoadBalancer
