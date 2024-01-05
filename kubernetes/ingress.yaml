@@ -14,35 +14,35 @@ spec:
           service: 
             name: backend-service
             port:
-              number: 80
+              number: 8080
       - path: /api
         pathType: Prefix
         backend:
           service: 
             name: backend-service
             port:
-              number: 80
+              number: 8080
       - path: /api/v1/customers
         pathType: Prefix
         backend:
           service: 
             name: backend-service
             port:
-              number: 80
+              number: 8080
       - path: /api/v1/customers/
         pathType: Prefix
         backend:
           service: 
             name: backend-service
             port:
-              number: 80
+              number: 8080
       - path: /api/v1/auth/login
         pathType: Prefix
         backend:
           service: 
             name: backend-service
             port:
-              number: 80      
+              number: 8080      
   ingressClassName: nginx
 
 
