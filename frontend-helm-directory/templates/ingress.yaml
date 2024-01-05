@@ -7,39 +7,11 @@ spec:
   - host: {{ .Values.host}}
     http:
       paths:
-      - path: /
+      - path: /api/v1
         pathType: {{ .Values.pathType}}
         backend:
           service: 
             name: {{ .Values.ingressService.serviceName}}
             port:
-              number: {{ .Values.ingressPort.number}}
-      - path: /api
-        pathType: {{ .Values.pathType}}
-        backend:
-          service: 
-            name: {{ .Values.ingressService.serviceName}}
-            port:
-              number: {{ .Values.ingressPort.number}}
-      - path: /api/v1/customers
-        pathType: {{ .Values.pathType}}
-        backend:
-          service: 
-            name: {{ .Values.ingressService.serviceName}}
-            port:
-              number: {{ .Values.ingressPort.number}}
-      - path: /api/v1/customers/
-        pathType: {{ .Values.pathType}}
-        backend:
-          service: 
-            name: {{ .Values.ingressService.serviceName}}
-            port:
-              number: {{ .Values.ingressPort.number}}
-      - path: /api/v1/auth/login
-        pathType: Prefix
-        backend:
-          service: 
-            name: {{ .Values.ingressService.serviceName}}
-            port:
-              number: {{ .Values.ingressPort.number}}      
+              number: {{ .Values.ingressPort.number}}    
   ingressClassName: {{ .Values.ingressClassName}}
