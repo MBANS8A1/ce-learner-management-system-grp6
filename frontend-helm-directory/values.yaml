@@ -27,7 +27,7 @@ type: NodePort
 #Ingress-Related Variables
 
 ingressPort:
-  number: 8080
+  number: 80
 
 ingressService:
   serviceName: backend-service
