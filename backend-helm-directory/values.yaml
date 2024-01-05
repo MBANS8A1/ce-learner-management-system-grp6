@@ -1,5 +1,5 @@
 #Backend Deployment-Related Variables
-replicaCount: 2
+replicaCount: 3
 deployment:
   app_name: backend-app
 

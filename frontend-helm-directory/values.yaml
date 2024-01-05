@@ -1,5 +1,5 @@
 #Frontend Deployment-Related Variables
-replicaCount: 2
+replicaCount: 3
 deployment:
   app_name: frontend-app
 
@@ -27,7 +27,7 @@ type: NodePort
 #Ingress-Related Variables
 
 ingressPort:
-  number: 8080
+  number: 80
 
 ingressService:
   serviceName: backend-service
