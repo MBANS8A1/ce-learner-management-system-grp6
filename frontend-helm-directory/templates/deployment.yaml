@@ -25,5 +25,4 @@ spec:
         - containerPort: {{ .Values.ports.containerPort}}
         env:
             - name: {{ .Values.env.name}}
-              value: {{ .Values.env.uri}}
-              
+              value: {{ .Values.env.url}}

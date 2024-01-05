@@ -22,16 +22,17 @@ service:
   targetPort: 80
   protocol: TCP
 
-type: LoadBalancer
+type: NodePort
 
 #Ingress-Related Variables
 
-ingressClassName: nginx
-port:
- ingressPortNumber: 8080
+ingressPort:
+  number: 8080
 
 ingressService:
-  serviceName:  backend-service
+  serviceName: backend-service
 
-host : localhost
+host: localhost
+
 pathType: Prefix
+ingressClassName: nginx

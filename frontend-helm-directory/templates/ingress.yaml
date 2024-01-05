@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress-controller
+spec:
+  rules:
+  - host: {{ .Values.host}}
+    http:
+      paths:
+      - path: /
+        pathType: {{ .Values.pathType}}
+        backend:
+          service: 
+            name: {{ .Values.ingressService.serviceName}}
+            port:
+              number: {{ .Values.ingressPort.number}}
+      - path: /api
+        pathType: {{ .Values.pathType}}
+        backend:
+          service: 
+            name: {{ .Values.ingressService.serviceName}}
+            port:
+              number: {{ .Values.ingressPort.number}}
+      - path: /api/v1/customers
+        pathType: {{ .Values.pathType}}
+        backend:
+          service: 
+            name: {{ .Values.ingressService.serviceName}}
+            port:
+              number: {{ .Values.ingressPort.number}}
+      - path: /api/v1/customers/
+        pathType: {{ .Values.pathType}}
+        backend:
+          service: 
+            name: {{ .Values.ingressService.serviceName}}
+            port:
+              number: {{ .Values.ingressPort.number}}
+      - path: /api/v1/auth/login
+        pathType: Prefix
+        backend:
+          service: 
+            name: {{ .Values.ingressService.serviceName}}
+            port:
+              number: {{ .Values.ingressPort.number}}      
+  ingressClassName: {{ .Values.ingressClassName}}

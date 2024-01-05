@@ -10,7 +10,6 @@ containers:
   image: mbans7a1/back_end_repo:backendimgv1
 
 
-
 #Backend Service-Related Variables
 
 service:
@@ -21,3 +20,16 @@ service:
   protocol: TCP
 
 type: NodePort
+
+# Ingress-Related values
+
+# ingressPort:
+#   number: 8080
+
+# ingressService:
+#   serviceName: backend-service
+
+# host: localhost
+
+# pathType: Prefix
+# ingressClassName: nginx
