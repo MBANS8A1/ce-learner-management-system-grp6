@@ -21,20 +21,3 @@ service:
 
 type: LoadBalancer
 
-#Backend Actuator variables
-
-# livenessProbe:
-#   httpHeaderName: Custom-Header
-#   value: ""
-#   initialDelaySeconds: 15
-#   periodSeconds:  15
-#   path: actuator/health
-#   port: 8080
-
-# readinessProbe:
-#   httpHeaderName:  User-Agent
-#   value: ""
-#   initialDelaySeconds: 10
-#   periodSeconds:  10
-#   path: actuator/health
-#   port: 8080
