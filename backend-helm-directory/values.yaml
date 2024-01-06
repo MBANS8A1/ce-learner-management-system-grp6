@@ -19,17 +19,22 @@ service:
   targetPort: 8080
   protocol: TCP
 
-type: NodePort
+type: LoadBalancer
 
-# Ingress-Related values
+#Backend Actuator variables
 
-# ingressPort:
-#   number: 8080
+# livenessProbe:
+#   httpHeaderName: Custom-Header
+#   value: ""
+#   initialDelaySeconds: 15
+#   periodSeconds:  15
+#   path: actuator/health
+#   port: 8080
 
-# ingressService:
-#   serviceName: backend-service
-
-# host: localhost
-
-# pathType: Prefix
-# ingressClassName: nginx
+# readinessProbe:
+#   httpHeaderName:  User-Agent
+#   value: ""
+#   initialDelaySeconds: 10
+#   periodSeconds:  10
+#   path: actuator/health
+#   port: 8080

@@ -11,7 +11,7 @@ containers:
 
 env:
   name: VITE_API_BASE_URL
-  url: http://localhost:8080
+  url: http://aa74245c15ecd43b9a073b66b730d426-1003970181.eu-west-2.elb.amazonaws.com:8080
 
 #Frontend Service-Related Variables
 
@@ -23,4 +23,5 @@ service:
   protocol: TCP
 
 type: LoadBalancer
+
 

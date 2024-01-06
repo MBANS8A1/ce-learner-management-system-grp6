@@ -48,6 +48,16 @@
      Name = var.vpc_name
 
   #    public_subnet_tags = {
+  #   "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+  #   "kubernetes.io/role/elb"                      = 1
+  #   }
+
+  #   private_subnet_tags = {
+  #   "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+  #   "kubernetes.io/role/internal-elb"             = 1
+  #  }
+
+  #    public_subnet_tags = {
   #     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   #     "kubernetes.io/role/elb"                      = 1
   #   }
@@ -124,34 +134,44 @@ resource "aws_route" "public_internet_gateway" {
  gateway_id             = aws_internet_gateway.proj-igw.id
 }
 
-
+resource "aws_eip" "nat-eip" {
+  count                     = length(var.availability_zones)
+}
 
 resource "aws_nat_gateway" "nat-gateway" {
+  count = length(var.availability_zones)
+  allocation_id = aws_eip.nat-eip[count.index].id
   connectivity_type = var.connectivity_type
-  subnet_id         = "${element(aws_subnet.public-subnets.*.id, 0)}"
+  subnet_id         = aws_subnet.public-subnets[count.index].id
   tags = {
-    Name = "${var.environment}-nat-gateway"
+    Name = "${var.environment}-nat-gateway-${count.index + 1}"
     Environment = "${var.environment}"
   }
 }
 
 resource "aws_route_table" "privateRT" {
+  count  = length(var.private_subnets_cidr)
   vpc_id = aws_vpc.projectVPC.id
+   route {
+    cidr_block              = "0.0.0.0/0"
+    nat_gateway_id          = aws_nat_gateway.nat-gateway[count.index].id
+  }
   tags = {
-    Name        = "${var.environment}-private-route-table"
+    
+    Name        = "${var.environment}-private-route-table-${count.index+1}"
     Environment = "${var.environment}"
   }
 }
 
-resource "aws_route" "private_nat_gateway" {
-  route_table_id         = aws_route_table.privateRT.id
-  destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.nat-gateway.id
-}
+# resource "aws_route" "private_nat_gateway" {
+#   route_table_id         = aws_route_table.privateRT.id
+#   destination_cidr_block = "0.0.0.0/0"
+#   nat_gateway_id         = aws_nat_gateway.nat-gateway.id
+# }
 
 resource "aws_route_table_association" "private" {
-  count  = length(aws_subnet.private-subnets[*])
-  route_table_id = aws_route_table.privateRT.id
+  count  = length(var.private_subnets_cidr)
+  route_table_id = aws_route_table.privateRT[count.index].id
   subnet_id = aws_subnet.private-subnets[count.index].id
 
 }

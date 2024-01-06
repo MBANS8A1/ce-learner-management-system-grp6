@@ -122,12 +122,29 @@ resource "aws_security_group" "rds-security-group" {
  vpc_id      = var.vpc_id
 
 ingress {
-   description = "postgresql ingress"
+   description = "postgresql ingress route 1"
    from_port   = 5432
    to_port     = 5432
    protocol    = "tcp"
    cidr_blocks = ["${chomp(data.external.myipaddr.result.ip)}/32"]
 #    ipv6_cidr_blocks = ["${chomp(data.external.myipaddrv6.result.ip)}/128"]
+ }
+
+  ingress {
+   description = "postgresql ingress route 2"
+   from_port   = 5433
+   to_port     = 5433
+   protocol    = "tcp"
+   cidr_blocks = ["${chomp(data.external.myipaddr.result.ip)}/32"]
+ }
+
+ egress {
+   from_port   = 0
+   to_port     = 0
+   protocol    = "-1"
+   cidr_blocks = ["0.0.0.0/0"]
+   ipv6_cidr_blocks = ["::/0"]
+
  }
 
  tags = {

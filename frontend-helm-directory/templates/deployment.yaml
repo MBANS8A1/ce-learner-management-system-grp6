@@ -26,3 +26,8 @@ spec:
         env:
             - name: {{ .Values.env.name}}
               value: {{ .Values.env.url}}
+
+
+
+
+   

@@ -16,8 +16,9 @@ resource "aws_db_instance" "project-rds-ins" {
   engine_version       = var.engine_version
   instance_class       = var.instance_class
   username             = var.db_username
-  manage_master_user_password = var.use_secrets_manager
-  # master_user_secret_kms_key_id = aws_kms_key.rds_primary_key.key_id
+  password             = var.db_password
+  # manage_master_user_password = var.use_secrets_manager
+  # master_user_secret_kms_key_id = aws_kms_key.rds_group_key.key_id
   db_subnet_group_name = aws_db_subnet_group.rds_sub_grp.name
   skip_final_snapshot  = true
   vpc_security_group_ids = var.security_group_ids
@@ -25,7 +26,7 @@ resource "aws_db_instance" "project-rds-ins" {
 
 #   password             = var.db_password
 
-# resource "aws_kms_key" "rds_primary_key" {
+# resource "aws_kms_key" "rds_group_key" {
 #   description = "Test KMS Key"
 #   deletion_window_in_days = 10
 #   enable_key_rotation = true
@@ -33,7 +34,7 @@ resource "aws_db_instance" "project-rds-ins" {
 # }
 
 # resource "aws_kms_key_policy" "project_policy" {
-#   key_id = aws_kms_key.rds_primary_key.id
+#   key_id = aws_kms_key.rds_group_key.id
 #   policy = jsonencode({
 #     Id = "example_policy"
 #     Statement = [
@@ -51,7 +52,6 @@ resource "aws_db_instance" "project-rds-ins" {
 #     Version = "2012-10-17"
 #   })
 # }
-
 
 
 resource "aws_db_subnet_group" "rds_sub_grp" {

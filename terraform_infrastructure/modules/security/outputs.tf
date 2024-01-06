@@ -1,5 +1,5 @@
 output "security_group_ids" {
-value =[aws_security_group.ingress_ctrl.id,aws_security_group.egress_ctrl.id]
+value =[aws_security_group.rds-security-group.id]
 }
 
 output "egresscontrol_vpc_id"{

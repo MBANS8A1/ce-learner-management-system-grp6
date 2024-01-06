@@ -44,7 +44,7 @@ module "eks" {
     max_size = var.max_size
     desired_size = var.desired_size
     private_subnets_ids = module.networking.public-subnets-cidr-ids
-    environment = var.environment
+    environment = var.environment    
 }
 
 
